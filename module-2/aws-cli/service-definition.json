@@ -11,11 +11,11 @@
     "awsvpcConfiguration": {
       "assignPublicIp": "DISABLED",
       "securityGroups": [
-        "REPLACE_ME_SECURITY_GROUP_ID"
+        "sg-033d3eda8f7f5ede1"
       ],
       "subnets": [
-        "REPLACE_ME_PRIVATE_SUBNET_ONE",
-        "REPLACE_ME_PRIVATE_SUBNET_TWO"
+        "subnet-0cf27d66061848522",
+        "subnet-07da07ebf9fb12024"
       ]
     }
   },
@@ -24,7 +24,7 @@
     {
       "containerName": "MythicalMysfits-Service",
       "containerPort": 8080,
-      "targetGroupArn": "REPLACE_ME_NLB_TARGET_GROUP_ARN"
+      "targetGroupArn": "arn:aws:elasticloadbalancing:ap-south-1:420671498368:targetgroup/MythicalMysfits-TargetGroup/56e4df56105428e4"
     }
   ]
 }
