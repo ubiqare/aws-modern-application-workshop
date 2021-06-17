@@ -1,0 +1,8 @@
+{
+    "status": "PENDING", 
+    "targetArns": [
+        "arn:aws:elasticloadbalancing:ap-south-1:420671498368:loadbalancer/net/mysfits-nlb/9182365887d36a36"
+    ], 
+    "id": "c8sun1", 
+    "name": "MysfitsApiVpcLink"
+}

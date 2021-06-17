@@ -1,0 +1,250 @@
+    1  pwd
+    2  ls -al
+    3  uname -a
+    4  clear
+    5  pwd
+    6  git clone -b python https://github.com/aws-samples/aws-modern-application-workshop.git
+    7  git status
+    8  pwd
+    9  ls -al
+   10  cd aws-modern-application-workshop/
+   11  git status
+   12  ls -al
+   13  aws s3 list
+   14  aws s3 help
+   15  aws s3 mb s3://s3cdn
+   16  aws s3 mb s3://limayeCDN
+   17  aws s3 mb s3://limaye-cdn-ubiqare
+   18  aws s3 rm s3://limaye-cdn-ubiqare
+   19  aws s3 mb s3://ubiqare-cdn
+   20  aws s3 website s3://limaye-cdn --index-document index.html
+   21  aws s3 website s3://ubiqare-cdn --index-document index.html
+   22  aws s3api put-bucket-policy --bucket ubiqare-cdn --policy file://~/environment/aws-modern-application-workshop/module-1/aws-cli/website-bucket-policy.json
+   23  pwd
+   24  ls
+   25  cd module-1
+   26  ls
+   27  cd web
+   28  ls -al
+   29  cat index.html
+   30  aws s3 cp ~/environment/aws-modern-application-workshop/module-1/web/index.html s3://ubiqare-cdn/index.html 
+   31  ls -al
+   32  aws s3 cp ~/environment/aws-modern-application-workshop/module-1/web/index.html s3://ubiqare-cdn/index.html 
+   33  pwd
+   34  cd ../../
+   35  ls
+   36  cd module-2
+   37  ls
+   38  cd cfn
+   39  cd ../aws-ci
+   40  cd ../aws-cli
+   41  ls
+   42  cd ../cfn
+   43  ls
+   44  vi core.yml
+   45  aws cloudformation create-stack --stack-name MythicalMysfitsCoreStack --capabilities CAPABILITY_NAMED_IAM --template-body file://~/environment/aws-modern-application-workshop/module-2/cfn/core.yml
+   46  aws cloudformation describe-stacks --stack-name MythicalMysfitsCoreStack
+   47  aws cloudformation describe-stacks --stack-name MythicalMysfitsCoreStack > ~/environment/cloudformation-core-output.json
+   48  git status
+   49  cd ../app/service
+   50  git status
+   51  git add ori.json
+   52  cd ..
+   53  ls
+   54  git status
+   55  cd service
+   56  git status
+   57  git add mysfits-response.json
+   58  git status
+   59  cd ../../module-1
+   60  ls
+   61  git status
+   62  cd ../../../module-1
+   63  ls
+   64  cd web
+   65  ls
+   66  git status
+   67  git add index.html
+   68  cd ../aws-cli
+   69  ls
+   70  git status
+   71  git add website-bucket-policy.json 
+   72  git status
+   73  git add "module-1 changes completed"
+   74  git commit -m "module-1 changes completed"
+   75  git config --global user.limaye "Prasanna Limaye"
+   76  git config --global user.email "prasanna.limaye@ubiqare.co.in"
+   77  git status
+   78  cd cd ~/environment/aws-modern-application-workshop/module-2/app
+   79  cd ~/environment/aws-modern-application-workshop/module-2/app
+   80  ls
+   81  pwd
+   82  ls -al
+   83  docker build . -t 420671498368.dkr.ecr.ap-south-1.amazonaws.com/mythicalmysfits/service:latest
+   84  docker run -p 8080:8080 420671498368
+   85  docker run -p 8080:8080 420671498368420671498368.dkr.ecr.ap-south-1.amazonaws.com/mythicalmysfits/service:latest
+   86  docker run -p 8080:8080 420671498368.dkr.ecr.ap-south-1.amazonaws.com/mythicalmysfits/service:latest
+   87  aws ecr create-repository --repository-name mythicalmysfits/service
+   88  $(aws ecr get-login --no-include-email)
+   89  docker push 420671498368420671498368.dkr.ecr.ap-south-1.amazonaws.com/mythicalmysfits/service:latest
+   90  docker push 420671498368.dkr.ecr.ap-south-1.amazonaws.com/mythicalmysfits/service:latest
+   91  aws ecr describe-images --repository-name mythicalmysfits/service
+   92  aws ecs create-cluster --cluster-name MythicalMysfits-Cluster
+   93  aws logs create-log-group --log-group-name mythicalmysfits-logs
+   94  aws ecs register-task-definition --cli-input-json file://~/environment/aws-modern-application-workshop/module-2/aws-cli/task-definition.json
+   95  aws elbv2 create-load-balancer --name mysfits-nlb --scheme internet-facing --type network --subnets subnet-098b1433f4ec3d011 subnet-07da07ebf9fb12024 > ~/environment/nlb-output.json
+   96  cat nlb-output.json
+   97  cat ~/environment/nlb-output.json 
+   98  aws elbv2 create-target-group --name MythicalMysfits-TargetGroup --port 8080 --protocol TCP --target-type ip --vpc-id vpc-083eb1b1a8ac4e119 --health-check-interval-seconds 10 --health-check-path / --health-check-protocol HTTP --healthy-threshold-count 3 --unhealthy-threshold-count 3 > ~/environment/target-group-output.json
+   99  aws elbv2 create-listener --default-actions TargetGroupArn=arn:aws:elasticloadbalancing:ap-south-1:420671498368:targetgroup/MythicalMysfits-TargetGroup/56e4df56105428e4,Type=forward --load-balancer-arn arn:aws:elasticloadbalancing:ap-south-1:420671498368:loadbalancer/net/mysfits-nlb/a1449ef86d1e3ae7 --port 80 --protocol TCP
+  100  aws iam create-service-linked-role --aws-service-name ecs.amazonaws.com
+  101  aws ecs create-service --cli-input-json file://~/environment/aws-modern-application-workshop/module-2/aws-cli/service-definition.json
+  102  curl http://localhost:51678/v1/metadata
+  103  ls -al
+  104  docker list
+  105  docker help
+  106  docker info
+  107  docker ps
+  108  docker help
+  109  docker image
+  110  docker image ls
+  111  aws ecs 
+  112  aws ecs help
+  113  aws ecs describe services
+  114  aws ecs list-services
+  115  ls
+  116  history
+  117  docker images ls
+  118  docker image
+  119  docker images ls
+  120  docker run -p 8080:8080 420671498368.dkr.ecr.ap-south-1.amazonaws.com/mythicalmysfits/service:latest
+  121  docker help
+  122  docker run help
+  123  docker --help run
+  124  docker run --help
+  125  docker ps
+  126  curl http://10.0.1.254:8080
+  127  uname -a
+  128  ip show
+  129  ip show addr
+  130  ip help
+  131  ip addr show
+  132  nslook
+  133  nsloopup
+  134  ls
+  135  ls -al
+  136  cd ..
+  137  ls -al
+  138  cat README.md
+  139  aws elbv2 create-load-balancer --name mysfits-nlb --scheme internet-facing --type network --subnets subnet-098b1433f4ec3d011 subnet-098442b87a6a6ec3b > ~/environment/nlb-output.json
+  140  git status
+  141  cd aws-cli
+  142  git status
+  143  git add *
+  144  git status
+  145  git commit -m "The udpated with fargate launching using build using docker image in availability zone"
+  146  git status
+  147  aws s3 cp ~/environment/aws-modern-application-workshop/module-2/web/index.html s3://ubiqare-cdn/index.html
+  148  ls -al
+  149  aws s3 mb s3://ubiq-cicd-bucket
+  150  aws s3api put-bucket-policy --bucket ubiq-cicd-bucket  --policy file://~/environment/aws-modern-application-workshop/module-2/aws-cli/artifacts-bucket-policy.json
+  151  aws codecommit create-repository --repository-name MythicalMysfitsService-Repository
+  152  aws codecommit create-repository --repository-name MythicalMysfitsService-Repository > codecommit-repo-output.json
+  153  aws codebuild create-project --cli-input-json file://~/environment/aws-modern-application-workshop/module-2/aws-cli/code-build-project.json
+  154  cd ..
+  155  ls
+  156  cd ..
+  157  ls
+  158  aws codebuild create-project --cli-input-json file://~/environment/aws-modern-application-workshop/module-2/aws-cli/code-build-project.json > codebuild-output.json
+  159  rm codebuild-output.json 
+  160  aws codepipeline create-pipeline --cli-input-json file://~/environment/aws-modern-application-workshop/module-2/aws-cli/code-pipeline.json > code-pipeline-output.json
+  161  aws ecr set-repository-policy --repository-name mythicalmysfits/service --policy-text file://~/environment/aws-modern-application-workshop/module-2/aws-cli/ecr-policy.json
+  162  git config --global user.name
+  163  git config --global user.name "Prasanna Limaye"
+  164  git config --global user.email "prasanna.limaye@ubiqare.com"
+  165  git lg
+  166  git log
+  167  ls
+  168  cd aws-modern-application-workshop/
+  169  git log
+  170  git config --global user.email "prasanna.limaye@ubiqare.com"
+  171  git config --global user.name "Prasanna Limaye"
+  172  git log
+  173  git config --global credential.helper '!aws codecommit credential-helper $@'
+  174  echo $@
+  175  git config --global credential.UseHttpPath true
+  176  cd ..
+  177  git clone https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/MythicalMysfitsService-Repository
+  178  cp -r ~/environment/aws-modern-application-workshop/module-2/app/* ~/environment/MythicalMysfitsService-Repository/
+  179  ls
+  180  cd MythicalMysfitsService-Repository/
+  181  ls
+  182  git status
+  183  ls
+  184  ls service
+  185  cd ..
+  186  ls -al
+  187  cd MythicalMysfitsService-Repository/
+  188  ls
+  189  git add *
+  190  git status
+  191  vi mysfits-response.json
+  192  cd service
+  193  ls
+  194  vi mysfits-response.json 
+  195  git commit -m "my Baseline code - have fun - Prasanna Limaye"
+  196  git status
+  197  cd ..
+  198  git push
+  199  git status
+  200  ls
+  201  cd service
+  202  ls
+  203  cd ..
+  204  ls -al
+  205  cd ..
+  206  ls -al
+  207  ls
+  208  cd aws-modern-application-workshop/
+  209  ls
+  210  cd module-2
+  211  ls
+  212  ls app
+  213  ls
+  214  cd app
+  215  ls
+  216  cd service
+  217  ls
+  218  vi mysfits-response.json 
+  219  cd ..
+  220  ls
+  221  cd ..
+  222  ls
+  223  cd ..
+  224  ls
+  225  cd ..
+  226  ls
+  227  cd MythicalMysfitsService-Repository/
+  228  ls
+  229  cd service
+  230  ls
+  231  vi mysfits-response.json 
+  232  vi ori.jsob
+  233  vi requirements.txt
+  234  vi mythicalMysfitsService.py 
+  235  ls
+  236  vi mysfits-response.json 
+  237  git status
+  238  git add *
+  239  git commit -m "Ajgar added into the list"
+  240  git push
+  241  ls
+  242  git status
+  243  git log
+  244  pwd
+  245  cd ..
+  246  ls
+  247  cd service
+  248  ls
+  249  history
+  250  history > day1

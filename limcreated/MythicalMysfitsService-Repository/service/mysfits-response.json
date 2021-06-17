@@ -1,0 +1,61 @@
+{
+  "mysfits": [
+    
+       
+          {
+            "mysfitId": "4e53920c-505a-4a90-a694-b9300791f0ae",
+            "name": "Ubiqare",
+            "species": "startup",
+            "age": 43,
+            "goodevil": "Good",
+            "lawchaos": "Lawful",
+            "thumbImageUri": "https://ubiqare.in/wp-content/uploads/2019/11/cropped-favUbiq512x512-180x180.png"
+          },
+          {
+            "mysfitId": "2b473002-36f8-4b87-954e-9a377e0ccbec",
+            "name": "10000 Startup",
+            "species": "Govt",
+            "age": 12,
+            "goodevil": "Neutral",
+            "lawchaos": "Lawful",
+            "thumbImageUri": "https://ubiqare.in/wp-content/uploads/2020/06/10000-start-ups-150x150.jpg"
+          },
+          {
+            "mysfitId": "0e37d916-f960-4772-a25a-01b762b5c1bd",
+            "name": "CCAMP",
+            "species": "Nice",
+            "age": 50,
+            "goodevil": "Good",
+            "lawchaos": "Chaotic",
+            "thumbImageUri": "https://ubiqare.in/wp-content/uploads/2020/06/CCAMP-1-150x150.jpg"
+          },
+          {
+            "mysfitId": "da5303ae-5aba-495c-b5d6-eb5c4a66b941",
+            "name": "HTIC",
+            "species": "IITs",
+            "age": 8,
+            "goodevil": "Good",
+            "lawchaos": "Neutral",
+            "thumbImageUri": "https://ubiqare.in/wp-content/uploads/2020/06/HTIC-Logos-V2-1-150x150.jpg"
+          },
+          {
+            "mysfitId": "b41ff031-141e-4a8d-bb56-158a22bea0b3",
+            "name": "K-Sap",
+            "species": "Sap Nag Ajgar",
+            "age": 13,
+            "goodevil": "Evil",
+            "lawchaos": "Neutral",
+            "thumbImageUri": "https://ubiqare.in/wp-content/uploads/2020/06/k-sap-logo-150x150.jpg"
+          },
+          {
+            "mysfitId": "3f0f196c-4a7b-43af-9e29-6522a715342d",
+            "name": "Sine IITBombay",
+            "species": "IITs",
+            "age": 2709,
+            "goodevil": "Neutral",
+            "lawchaos": "Chaotic",
+            "thumbImageUri": "https://ubiqare.in/wp-content/uploads/2020/06/since-logo-150x150.jpg"
+          }
+        
+  ]
+}

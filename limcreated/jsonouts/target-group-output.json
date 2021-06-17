@@ -1,0 +1,23 @@
+{
+    "TargetGroups": [
+        {
+            "HealthCheckPath": "/", 
+            "HealthCheckIntervalSeconds": 10, 
+            "VpcId": "vpc-083eb1b1a8ac4e119", 
+            "Protocol": "TCP", 
+            "HealthCheckTimeoutSeconds": 6, 
+            "TargetType": "ip", 
+            "HealthCheckProtocol": "HTTP", 
+            "Matcher": {
+                "HttpCode": "200-399"
+            }, 
+            "UnhealthyThresholdCount": 3, 
+            "HealthyThresholdCount": 3, 
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:ap-south-1:420671498368:targetgroup/MythicalMysfits-TargetGroup/56e4df56105428e4", 
+            "HealthCheckEnabled": true, 
+            "HealthCheckPort": "traffic-port", 
+            "Port": 8080, 
+            "TargetGroupName": "MythicalMysfits-TargetGroup"
+        }
+    ]
+}

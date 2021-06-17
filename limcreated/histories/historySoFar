@@ -1,0 +1,176 @@
+
+
+
+
+Create a Table with DynamoDB-table.json file
+and add some predefined rows in the database
+
+
+    7  aws dynamodb create-table --cli-input-json file://~/environment/aws-modern-application-workshop/module-3/aws-cli/dynamodb-table.json
+    8  aws dynamodb describe-table --table-name MysfitsTable
+    9  aws dynamodb scan --table-name MysfitsTable
+   10  aws dynamodb batch-write-item --request-items file://~/environment/aws-modern-application-workshop/module-3/aws-cli/populate-dynamodb.json
+   11  aws dynamodb scan --table-name MysfitsTable
+
+
+In the service Repository, copy the service code in the repository to upload
+and make a release by pushing the code in code pipeline
+
+
+
+   12  cp ~/environment/aws-modern-application-workshop/module-3/app/service/* ~/environment/MythicalMysfitsService-Repository/service/
+   13  cd ~/environment/MythicalMysfitsService-Repository
+   15  git status
+   16  git add .
+   17  git status
+   18  git commit -m "Module 3: The code has been updated updating clinets fronm the database"
+   19  git push
+
+
+
+update the index file for the cdn so that the CDN has latest index
+
+
+   20  cd
+   21  pushd ~/environment/aws-modern-application-workshop
+   22  diff module-2/web/index.html module-3/web/index.html
+
+
+
+for authentication, create a user pool use AWS emailing features
+keep the userpool arns safely in some file
+create an user pool client under the user-pool-id
+
+
+
+   23  aws cognito-idp create-user-pool --pool-name MysfitsUserPool --auto-verified-attributes email
+   28  cat ../userpool-output.json
+
+   29  aws cognito-idp create-user-pool-client --user-pool-id ap-south-1_cV2KSaU50  --client-name MysfitsUserPoolClient
+
+
+
+
+create an api end point by creating an apigateway point for the loadbalancer
+using swagger file, create an endpoint rest api point
+create an deployment of rest-api giving name production
+
+   31  aws apigateway create-vpc-link --name MysfitsApiVpcLink 
+        --target-arns arn:aws:elasticloadbalancing:ap-south-1:420671498368:loadbalancer/net/mysfits-nlb/9182365887d36a36  > ~/environment/api-gateway-link-output.json
+   32  aws apigateway import-rest-api --parameters endpointConfigurationTypes=REGIONAL 
+        --body file://~/environment/aws-modern-application-workshop/module-4/aws-cli/api-swagger.json --fail-on-warnings
+   33  aws apigateway create-deployment --rest-api-id 71o6is5lq6 --stage-name prod
+
+
+Upload the latest production service code to the repository and push it so that it is built and available for consumption
+update the latest code to the CDN also with the index file updated to use the rest API instead of any other thing
+
+   34  cd ~/environment/MythicalMysfitsService-Repository/
+   35  cp -r ~/environment/aws-modern-application-workshop/module-4/app/* .
+
+
+   36  git add .
+   37  git push
+   38  git status
+   39  git commit -m "The Gateway API is added so want to push the new code back to production"
+   40  git push
+   41  aws s3 cp --recursive ~/environment/aws-modern-application-workshop/module-4/web/ s3://ubiqare-cdn/
+
+
+
+Push again to start a build , any way that is useless as it is not required to push
+
+
+
+   42  cd
+   43   cd environment/
+   44  ls
+   45  cd aws-modern-application-workshop/
+   46  ls
+   47  git status
+   48  git add .
+   49  git commit -m "Module 2 done, module -3 done , module -4 done"
+   50  git status
+   51  git log
+   52  git push
+
+
+
+Now we will add code repository for the lambda function so that we can create analysis stream for click 
+behaviour
+
+
+
+   53  aws codecommit create-repository --repository-name MythicalMysfitsStreamingService-Repository
+   54  vi cloneURL
+   55  cd 
+
+
+Get the Streaming service code and cloning the repository
+
+   56  cd environment/
+   58  git clone https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/MythicalMysfitsStreamingService-Repository
+   59  cd ~/environment/MythicalMysfitsStreamingService-Repository/
+   60  cp -r ~/environment/aws-modern-application-workshop/module-5/app/streaming/* .
+
+
+Update the code from the module-5 cloud formation to the streaming repository
+
+   62  cp ~/environment/aws-modern-application-workshop/module-5/cfn/* .
+
+
+get all the dependencies added by running pip command in the repository so that the request python modules are added
+
+   64  cat real-time-streaming.yml
+   65  pip install requests -t .
+
+
+do maha build of the streaming lambda function
+push the built code from the lambda function
+
+
+   66  git status
+   67  git add .
+   68  git status
+   69  git commit -m "New Stream processing environment and lambda function"
+   70  git status
+   71  git push
+
+
+
+create lambda code holder bucket
+using sam , the built lambda function is packaged neatly into s3-bucket 
+
+
+
+
+   80  aws s3 mb s3://ubiq-streaming-bucket
+   82  cd environment/
+   84  cd MythicalMysfitsStreamingService-Repository/
+
+   87  sam package --template-file ./real-time-streaming.yml --output-template-file ./transformed-streaming.yml --s3-bucket ubiq-streaming-bucket
+
+
+cloudformation deploys the cfn transformed-streaming into stackname streaming infrastructure
+check the stack formed
+
+
+   89  aws cloudformation deploy --template-file /home/ec2-user/environment/MythicalMysfitsStreamingService-Repository/transformed-streaming.yml 
+            --stack-name MythicalMysfitsStreamingStack --capabilities CAPABILITY_IAM
+   90  aws cloudformation describe-stacks --stack-name MythicalMysfitsStreamingStack
+
+update the module5 index file with this new api for streaming and streaming ifrastructure and update the new index file to the CDN
+
+   93  aws s3 cp ~/environment/aws-modern-application-workshop/module-5/web/index.html s3://ubiqare-cdn/
+
+
+keep the latest transformed into repository. 
+
+
+   94  git status
+   95  git add .
+   96  git commit -m "Transformed streaming"
+   97  git push
+
+
+
